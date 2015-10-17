@@ -7,19 +7,14 @@
 
 	<persistence-unit name="photo">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>jdbc/photo</jta-data-source>
-
 		<class>photo.model.Picture</class>
-
 
 		<properties>
 			<!-- Properties for Hibernate -->
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.show_sql" value="true" />
-
-			<property name="hibernate.transaction.jta.platform"
-				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
-				
+			<property name="hibernate.hbm2ddl.import_files" value="import.sql"/>
+			
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
      		<property name="hibernate.connection.url" value="jdbc:mysql://localhost/photo" />
      		<property name="hibernate.connection.username" value="root" />

@@ -1,17 +1,19 @@
 package photo.persistence;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import photo.model.Picture;
-
+	
 public class PictureDao {
 
-	@PersistenceContext(unitName = "photo")
+	@Inject
 	private EntityManager entityManager;
 	
 	public final void persistPicture(final Picture picture) {
+		entityManager.getTransaction().begin();
 		entityManager.persist(picture);
+		entityManager.getTransaction().commit();
 	}
 	
 
