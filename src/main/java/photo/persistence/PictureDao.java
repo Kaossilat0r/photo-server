@@ -18,11 +18,10 @@ public class PictureDao {
 		entityManager.getTransaction().commit();
 	}
 
-	public final void removePicture(final Picture picture) {
-		Picture managedPicture = entityManager.find(Picture.class, picture.getId());
+	public final void removePicture(final Long pictureId) {
+		Picture managedPicture = entityManager.find(Picture.class, pictureId);
 
-		if (picture.equals(managedPicture)) {
-			// delete on exact match
+		if (managedPicture != null) {
 			entityManager.getTransaction().begin();
 			entityManager.remove(managedPicture);
 			entityManager.getTransaction().commit();
@@ -30,8 +29,14 @@ public class PictureDao {
 	}
 
 	public List<Picture> getPhotos(final Long userId) {
+		entityManager.getTransaction().begin();
+		
 		String query = "select p from Picture p where p.userId = :id";
-		return entityManager.createQuery(query, Picture.class).setParameter("id", userId).getResultList();
+		List<Picture> pictures = entityManager.createQuery(query, Picture.class).setParameter("id", userId).getResultList();
+		
+		entityManager.getTransaction().commit();
+		
+		return pictures;
 	}
 
 }

@@ -23,8 +23,8 @@ public class PictureService {
 		pictureDao.persistPicture(picture);
 	}
 	
-	public void removePicture(final Picture picture) {
-		pictureDao.removePicture(picture);
+	public void removePicture(final Long pictureId) {
+		pictureDao.removePicture(pictureId);
 	}
 
 	public List<Picture> getPhotos(final Long userId) {

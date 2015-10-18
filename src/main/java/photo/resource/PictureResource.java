@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -31,7 +31,7 @@ public class PictureResource {
 		return p;
 	}
 	
-	@PUT
+	@POST
 	@Path("photo")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public final void addPhoto(Picture picture, @PathParam("id") final Long userId) {
@@ -39,10 +39,10 @@ public class PictureResource {
 	}
 	
 	@DELETE
-	@Path("photo")
+	@Path("photo/{pictureId}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public final void deletePhoto(final Picture picture) {
-		pictureService.removePicture(picture);
+	public final void deletePhoto(@PathParam("pictureId") final Long pictureId) {
+		pictureService.removePicture(pictureId);
 	}
 	
 	@GET

@@ -13,6 +13,8 @@
 	</properties>
 
 	<dependencies>
+	
+		<!-- REST & DI -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
@@ -24,6 +26,7 @@
 			<version>${jersey.version}</version>
 		</dependency>
 
+		<!-- Perstitence Layer -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -35,6 +38,12 @@
 			<version>5.1.28</version>
 		</dependency>
 
+		<!-- Integration tests -->
+		<dependency>
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
