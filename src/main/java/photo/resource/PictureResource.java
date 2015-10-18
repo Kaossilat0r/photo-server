@@ -1,28 +1,54 @@
 package photo.resource;
 
-import javax.annotation.ManagedBean;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import java.util.List;
 
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import photo.model.Picture;
 import photo.service.PictureService;
 
-@ManagedBean
-@Path("/")
+@Path("/user/{id}")
 public class PictureResource {
 	
 	@Inject
 	private PictureService pictureService;
 	
+	// TODO testing only. remove
 	@GET
-	@Path("test")
-	public final String test() {
+	@Path("ping")
+	@Produces(MediaType.APPLICATION_JSON)
+	public final Picture pingResource(@PathParam("id") final Long userId) {
 		
-		System.out.println("test()");
-		
-		pictureService.testService();
-		pictureService.savePicture("full", "thumb", 1L);
-		
-		return "Hello Resource";
+		Picture p = pictureService.pingService(userId);
+		return p;
+	}
+	
+	@PUT
+	@Path("photo")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public final void addPhoto(Picture picture, @PathParam("id") final Long userId) {
+		pictureService.addPicture(picture, userId);
+	}
+	
+	@DELETE
+	@Path("photo")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public final void deletePhoto(final Picture picture) {
+		pictureService.removePicture(picture);
+	}
+	
+	@GET
+	@Path("photo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public final List<Picture> getPhotos(@PathParam("id") final Long userId) {
+		return pictureService.getPhotos(userId);
 	}
 }

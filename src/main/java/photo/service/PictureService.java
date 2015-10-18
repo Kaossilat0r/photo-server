@@ -1,5 +1,7 @@
 package photo.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import photo.model.Picture;
@@ -10,19 +12,22 @@ public class PictureService {
 	@Inject
 	private PictureDao pictureDao;
 	
-	public void testService() {
-		
-		System.out.println("testService");
+	public Picture pingService(final Long userId) {
+		Picture p = new Picture("/full/url", "/thumb/url", 0L);
+		p.setUserId(userId);
+		return p;
 	}
 	
-	public void savePicture(String fullURL, String thumbURL, Long userId) {
-		
-		System.out.println("Saving Picture");
-		
-		Picture picture = new Picture(fullURL, thumbURL, userId);
-		
+	public void addPicture(final Picture picture, final Long userId) {
+		picture.setUserId(userId);
 		pictureDao.persistPicture(picture);
-		
-		System.out.println("Picture saved");
+	}
+	
+	public void removePicture(final Picture picture) {
+		pictureDao.removePicture(picture);
+	}
+
+	public List<Picture> getPhotos(final Long userId) {
+		return pictureDao.getPhotos(userId);
 	}
 }
