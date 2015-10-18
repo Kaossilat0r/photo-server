@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "picture")
@@ -21,15 +22,16 @@ public class Picture implements Serializable {
 	private String fullURL;
 	private String thumbURL;
 	
-	private Long userId;
+	@ManyToOne
+	private User user;
 
 	public Picture() {
 	}
 	
-	public Picture(String fullURL, String thumbURL, Long userId) {
+	public Picture(String fullURL, String thumbURL, User user) {
 		this.fullURL = fullURL;
 		this.thumbURL = thumbURL;
-		this.userId = userId;
+		this.user = user;
 	}
 	
 	
@@ -57,12 +59,12 @@ public class Picture implements Serializable {
 		this.thumbURL = thumbURL;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public class Picture implements Serializable {
 		result = prime * result + ((fullURL == null) ? 0 : fullURL.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((thumbURL == null) ? 0 : thumbURL.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -100,10 +102,10 @@ public class Picture implements Serializable {
 				return false;
 		} else if (!thumbURL.equals(other.thumbURL))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}

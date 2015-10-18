@@ -8,6 +8,7 @@
 	<persistence-unit name="photo">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>photo.model.Picture</class>
+		<class>photo.model.User</class>
 
 		<properties>
 			<!-- Properties for Hibernate -->

@@ -11,11 +11,30 @@
 			<param-name>javax.ws.rs.Application</param-name>
 			<param-value>photo.App</param-value>
 		</init-param>
+		
+<!--	XXX Tracing
+		<init-param>
+			<param-name>jersey.config.server.tracing.type</param-name>
+			<param-value>ALL</param-value>
+		</init-param> 
+-->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MyApplication</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
+
+	<!-- Allow access on any Port -->
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>
+			org.apache.catalina.filters.CorsFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

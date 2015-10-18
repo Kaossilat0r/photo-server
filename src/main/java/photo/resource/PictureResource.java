@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import photo.model.Picture;
+import photo.persistence.PictureDao;
 import photo.service.PictureService;
 
 @Path("/user/{id}")
@@ -20,6 +21,9 @@ public class PictureResource {
 	
 	@Inject
 	private PictureService pictureService;
+	
+	@Inject
+	private PictureDao pictureDao;
 	
 	// TODO testing only. remove
 	@GET
@@ -31,6 +35,13 @@ public class PictureResource {
 		return p;
 	}
 	
+	@GET
+	@Path("photo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public final List<Picture> getPhotos(@PathParam("id") final Long userId) {
+		return pictureDao.getPhotos(userId);
+	}
+
 	@POST
 	@Path("photo")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -40,15 +51,8 @@ public class PictureResource {
 	
 	@DELETE
 	@Path("photo/{pictureId}")
-	@Consumes(MediaType.APPLICATION_JSON)
 	public final void deletePhoto(@PathParam("pictureId") final Long pictureId) {
-		pictureService.removePicture(pictureId);
+		pictureDao.removePicture(pictureId);
 	}
 	
-	@GET
-	@Path("photo")
-	@Produces(MediaType.APPLICATION_JSON)
-	public final List<Picture> getPhotos(@PathParam("id") final Long userId) {
-		return pictureService.getPhotos(userId);
-	}
 }

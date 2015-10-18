@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import javax.validation.constraints.AssertFalse;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
@@ -16,12 +15,14 @@ import org.junit.Test;
 
 import photo.App;
 import photo.model.Picture;
+import photo.model.User;
 
 public class PictureResourceTest extends JerseyTest {
 
 	private static final String BASE = "/user/1";
 	
-	private static final Picture NEW_PICTURE = new Picture("/full/url/new","/thumb/url/new",1L);
+	private static final User USER = new User();
+	private static final Picture NEW_PICTURE = new Picture("/full/url/new","/thumb/url/new", USER);
 	private static final Entity<Picture> NEW_PICTURE_ENTITY = Entity.entity(NEW_PICTURE, MediaType.APPLICATION_JSON);
 	private static final int NEW_PICTURE_ID = 7;
 	

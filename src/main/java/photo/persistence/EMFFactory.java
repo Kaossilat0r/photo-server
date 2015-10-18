@@ -1,4 +1,4 @@
-package photo;
+package photo.persistence;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

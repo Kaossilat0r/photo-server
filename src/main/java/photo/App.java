@@ -6,7 +6,7 @@ public class App extends ResourceConfig {
 	
 	public App() {
 		
-		register(new PhotoApplicationBinder());		
+		register(new AppBinder());		
 		packages(true, "photo");
 	}
 	

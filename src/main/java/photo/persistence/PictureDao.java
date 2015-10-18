@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import photo.model.Picture;
+import photo.model.User;
 
 public class PictureDao {
 
@@ -30,12 +31,15 @@ public class PictureDao {
 
 	public List<Picture> getPhotos(final Long userId) {
 		entityManager.getTransaction().begin();
+
+		User user = entityManager.find(User.class, userId);
 		
-		String query = "select p from Picture p where p.userId = :id";
-		List<Picture> pictures = entityManager.createQuery(query, Picture.class).setParameter("id", userId).getResultList();
-		
+		String query = "select p from Picture p where p.user = :user";
+		List<Picture> pictures = entityManager.createQuery(query, Picture.class)
+				.setParameter("user", user).getResultList();
+
 		entityManager.getTransaction().commit();
-		
+
 		return pictures;
 	}
 
