@@ -9,14 +9,19 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import photo.model.Tag;
 import photo.model.User;
+import photo.persistence.PictureDao;
 import photo.persistence.UserDao;
 
-@Path("/user")	// XXX otherwise this would clash with PictureResource, doh!
+@Path("/user")
 public class UserResource {
 
 	@Inject
 	private UserDao userDao;
+	
+	@Inject
+	private PictureDao pictureDao;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -29,5 +34,12 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public final User getUser(@PathParam("userId") final Long userId) {
 		return userDao.getUser(userId);
+	}
+	
+	@GET
+	@Path("{userId}/tags")
+	@Produces(MediaType.APPLICATION_JSON)
+	public final List<Tag> getTags(@PathParam("userId") final Long userId) {
+		return pictureDao.getTags(userId);
 	}
 }

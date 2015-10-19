@@ -33,7 +33,7 @@ public class PictureDao {
 	public List<Picture> getPhotos(final Long userId) {
 		entityManager.getTransaction().begin();
 
-		User user = getUser(userId);
+		User user = getUserById(userId);
 		
 		String query = "select p from Picture p where p.user = :user";
 		List<Picture> pictures = entityManager.createQuery(query, Picture.class)
@@ -45,10 +45,15 @@ public class PictureDao {
 	}
 
 	public List<Picture> getPhotos(final Long userId, final List<Long> tagIds) {
+		
+		if (tagIds.isEmpty()) {
+			return getPhotos(userId);
+		}
+		
 		entityManager.getTransaction().begin();
 		
-		User user = getUser(userId);
-		List<Tag> tags = getTags(tagIds);
+		User user = getUserById(userId);
+		List<Tag> tags = getTagsByIds(tagIds);
 		
 		String query = "select p from Picture p "
 				+ " join p.tags t " 
@@ -68,13 +73,24 @@ public class PictureDao {
 		return pictures;
 	}
 	
-	private User getUser(final Long userId) {
+	public List<Tag> getTags(final Long userId) {
+		entityManager.getTransaction().begin();
+		
+		User user = getUserById(userId);
+		// TODO return only tags for specified user
+		String query = "select t from Tag t";
+		List<Tag> tags = entityManager.createQuery(query, Tag.class).getResultList();
+		
+		entityManager.getTransaction().commit();
+		return tags;
+	}
+	
+	private User getUserById(final Long userId) {
 		return entityManager.find(User.class, userId);
 	}
 	
-	private List<Tag> getTags(final List<Long> tagIds) {
+	private List<Tag> getTagsByIds(final List<Long> tagIds) {
 		return entityManager.createQuery("select t from Tag t where t.id in :tagIds", Tag.class)
-					.setParameter("tagIds", tagIds).getResultList();
+				.setParameter("tagIds", tagIds).getResultList();
 	}
-	
 }

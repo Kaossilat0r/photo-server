@@ -24,9 +24,9 @@ insert into tag (id, name) values (2, "tag2");
 insert into tag (id, name) values (3, "tag3");
 
 
-insert into picture_tag (picture_id, tags_id) values (1,1);
-insert into picture_tag (picture_id, tags_id) values (1,2);
-insert into picture_tag (picture_id, tags_id) values (1,3);
+insert into picture_tag (picture_id, tags_id) values (10,1);
+insert into picture_tag (picture_id, tags_id) values (10,2);
+insert into picture_tag (picture_id, tags_id) values (10,3);
 insert into picture_tag (picture_id, tags_id) values (2,1);
 insert into picture_tag (picture_id, tags_id) values (3,1);
 insert into picture_tag (picture_id, tags_id) values (4,1);
