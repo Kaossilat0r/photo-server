@@ -12,6 +12,7 @@ public class UserDao {
 	@Inject
 	private EntityManager entityManager;
 	
+	/* get user */
 	public final User getUser(final Long userId) {
 		
 		entityManager.getTransaction().begin();
@@ -21,6 +22,7 @@ public class UserDao {
 		return user;
 	}
 	
+	/* all users */
 	public final List<User> getUsers() {
 		entityManager.getTransaction().begin();
 		

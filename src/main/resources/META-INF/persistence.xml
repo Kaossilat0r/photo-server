@@ -9,6 +9,7 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>photo.model.Picture</class>
 		<class>photo.model.User</class>
+		<class>photo.model.Tag</class>
 
 		<properties>
 			<!-- Properties for Hibernate -->

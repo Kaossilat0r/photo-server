@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import photo.model.User;
 import photo.persistence.UserDao;
 
-@Path("/users")	// XXX otherwise this would clash with PictureResource, doh!
+@Path("/user")	// XXX otherwise this would clash with PictureResource, doh!
 public class UserResource {
 
 	@Inject

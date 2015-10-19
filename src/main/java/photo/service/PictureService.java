@@ -15,10 +15,6 @@ public class PictureService {
 	@Inject
 	private UserDao userDao;
 	
-	public Picture pingService(final Long userId) {
-		Picture p = new Picture("/full/url", "/thumb/url", null);
-		return p;
-	}
 	
 	public void addPicture(final Picture picture, final Long userId) {
 		User user = userDao.getUser(userId);

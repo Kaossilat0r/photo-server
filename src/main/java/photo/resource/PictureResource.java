@@ -16,7 +16,7 @@ import photo.model.Picture;
 import photo.persistence.PictureDao;
 import photo.service.PictureService;
 
-@Path("/user/{id}")
+@Path("/user/{id}/photo")
 public class PictureResource {
 	
 	@Inject
@@ -25,32 +25,30 @@ public class PictureResource {
 	@Inject
 	private PictureDao pictureDao;
 	
-	// TODO testing only. remove
+	/* all photos for a user */
 	@GET
-	@Path("ping")
-	@Produces(MediaType.APPLICATION_JSON)
-	public final Picture pingResource(@PathParam("id") final Long userId) {
-		
-		Picture p = pictureService.pingService(userId);
-		return p;
-	}
-	
-	@GET
-	@Path("photo")
 	@Produces(MediaType.APPLICATION_JSON)
 	public final List<Picture> getPhotos(@PathParam("id") final Long userId) {
 		return pictureDao.getPhotos(userId);
 	}
-
+	
 	@POST
-	@Path("photo")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public final List<Picture> getPhotos(@PathParam("id") final Long userId, List<Long> tagIds) {
+		return pictureDao.getPhotos(userId, tagIds);
+	}
+
+	/* add photo */
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public final void addPhoto(Picture picture, @PathParam("id") final Long userId) {
 		pictureService.addPicture(picture, userId);
 	}
-	
+
+	/* delete photo */
 	@DELETE
-	@Path("photo/{pictureId}")
+	@Path("{pictureId}")
 	public final void deletePhoto(@PathParam("pictureId") final Long pictureId) {
 		pictureDao.removePicture(pictureId);
 	}

@@ -1,13 +1,15 @@
 package photo.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "picture")
@@ -24,6 +26,9 @@ public class Picture implements Serializable {
 	
 	@ManyToOne
 	private User user;
+	
+	@ManyToMany
+	private List<Tag> tags;
 
 	public Picture() {
 	}
@@ -66,48 +71,14 @@ public class Picture implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((fullURL == null) ? 0 : fullURL.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((thumbURL == null) ? 0 : thumbURL.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
+	
+	public void addTag(Tag tag) {
+		tags.add(tag);
+	}
+	
+	public List<Tag> getTags() {
+		return tags;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Picture other = (Picture) obj;
-		if (fullURL == null) {
-			if (other.fullURL != null)
-				return false;
-		} else if (!fullURL.equals(other.fullURL))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (thumbURL == null) {
-			if (other.thumbURL != null)
-				return false;
-		} else if (!thumbURL.equals(other.thumbURL))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
 	
 }

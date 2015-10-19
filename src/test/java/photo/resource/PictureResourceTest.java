@@ -32,15 +32,6 @@ public class PictureResourceTest extends JerseyTest {
 	protected Application configure() {
 		return new App();
 	}
-
-	@Test
-	public void testPing() {
-		Response response = target(BASE + "/ping").request().get();
-		Picture picture = response.readEntity(Picture.class);
-		response.close();
-
-		assertEquals("/full/url", picture.getFullURL());
-	}
 	
 	@Test
 	public void testDbAccess() {

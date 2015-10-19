@@ -20,13 +20,13 @@ public class AppBinder extends AbstractBinder {
 	@Override
 	protected void configure() {
 		
+		bind(UserResource.class).to(UserResource.class);
+		bind(UserDao.class).to(UserDao.class);
+		
 		bind(PictureResource.class).to(PictureResource.class);
 		bind(PictureService.class).to(PictureService.class);
 		bind(PictureDao.class).to(PictureDao.class);
 		
-		
-		bind(UserResource.class).to(UserResource.class);
-		bind(UserDao.class).to(UserDao.class);
 		
 		bindFactory(EMFFactory.class).to(EntityManagerFactory.class).in(Singleton.class);
 		bindFactory(EMFactory.class).to(EntityManager.class).in(RequestScoped.class);
