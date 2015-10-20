@@ -12,6 +12,8 @@
 			<param-value>photo.App</param-value>
 		</init-param>
 		
+
+		
 <!--	XXX Tracing
 		<init-param>
 			<param-name>jersey.config.server.tracing.type</param-name>
@@ -28,9 +30,19 @@
 	<!-- Allow access on any Port -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>
-		<filter-class>
-			org.apache.catalina.filters.CorsFilter
-		</filter-class>
+		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowed.headers</param-name>
+			<param-value>Accept,Accept-Encoding,Accept-Language,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization,Connection,Content-Type,Host,Origin,Referer,Token-Id,User-Agent, X-Requested-With</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowed.origins</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowed.methods</param-name>
+			<param-value>GET, POST, PUT, DELETE, OPTIONS, HEAD</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>CorsFilter</filter-name>
