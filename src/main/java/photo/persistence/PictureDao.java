@@ -29,6 +29,16 @@ public class PictureDao {
 			entityManager.getTransaction().commit();
 		}
 	}
+	
+	public final void updatePicture(final Picture picture, final Long pictureId) {
+		Picture managedPicture = entityManager.find(Picture.class, pictureId);
+
+		if (managedPicture != null) {
+			entityManager.getTransaction().begin();
+			entityManager.merge(picture);
+			entityManager.getTransaction().commit();
+		}
+	}
 
 	public List<Picture> getPhotos(final Long userId) {
 		entityManager.getTransaction().begin();

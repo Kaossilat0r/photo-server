@@ -47,6 +47,14 @@ public class PictureResource {
 	public final void addPhoto(Picture picture, @PathParam("id") final Long userId) {
 		pictureService.addPicture(picture, userId);
 	}
+	
+	/* update photo */
+	@POST
+	@Path("{pictureId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public final void updatePhoto(Picture picture, @PathParam("id") final Long pictureId) {
+		pictureDao.updatePicture(picture, pictureId);
+	}
 
 	/* delete photo */
 	@DELETE
