@@ -83,11 +83,9 @@ public class PictureDao {
 		return pictures;
 	}
 	
-	public List<Tag> getTags(final Long userId) {
+	public List<Tag> getAllTags(final Long userId) {
 		entityManager.getTransaction().begin();
 		
-		User user = getUserById(userId);
-		// TODO return only tags for specified user
 		String query = "select t from Tag t";
 		List<Tag> tags = entityManager.createQuery(query, Tag.class).getResultList();
 		
@@ -102,5 +100,21 @@ public class PictureDao {
 	private List<Tag> getTagsByIds(final List<Long> tagIds) {
 		return entityManager.createQuery("select t from Tag t where t.id in :tagIds", Tag.class)
 				.setParameter("tagIds", tagIds).getResultList();
+	}
+
+	public void addTag(final Tag tag) {
+		
+		entityManager.getTransaction().begin();
+
+		String query = "select t from Tag t where t.name = :tagName";
+		List<Tag> managedTags = entityManager.createQuery(query, Tag.class)
+				.setParameter("tagName", tag.getName()).getResultList();
+		
+		if (managedTags.isEmpty()) {
+			entityManager.merge(tag);
+		}
+		
+		entityManager.getTransaction().commit();
+		
 	}
 }
