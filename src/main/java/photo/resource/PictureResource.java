@@ -32,7 +32,9 @@ public class PictureResource {
 		return pictureDao.getPhotos(userId);
 	}
 	
+	/* all photos for a user by tag */
 	@POST
+	@Path("byTag")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public final List<Picture> getPhotos(@PathParam("id") final Long userId, List<Long> tagIds) {
